@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <title>Templating in Flask</title>
+  </head>
+    <div style="margin-top: 40px; text-align: center">
+        <label><strong>Amount</strong></label>
+        <input id="amount" type="number">
+    </div>
+    <div style="margin-top: 10px; text-align: center">
+        <label><strong>Split type</strong></label>
+        <input type="radio" id="equal" name="split" value="equal">
+        <label for="equal">Equal</label>
+        <input type="radio" id="more-odd" name="split" value="more-odd">
+        <label for="more-odd">More Odd</label><br>
+    </div>
+    <div style="text-align: center;">
+        <button style="margin-top: 10px;" type="submit" onclick="getDonations()"> Submit </button>
+    </div>
+
+
+    <script>
+    const getDonations = () => {
+        const amount = document.getElementById("amount").value;
+        const radios = document.getElementsByName("split");
+        let split;
+        for(let i=0; i<radios.length; i++){
+            if(radios[i].checked) {
+                split = radios[i].value;
+                break
+            }
+        }
+        if(!amount) {
+            alert('Enter Amount');
+            return
+        }
+        if(!split) {
+            alert('Select Split');
+            return
+        }
+        console.log(amount, split);
+        location.href = `{{ base_url }}/get-donations?amount=${amount}&split=${split}`
+    }
+    </script>
+  </body>
+
+</html>
